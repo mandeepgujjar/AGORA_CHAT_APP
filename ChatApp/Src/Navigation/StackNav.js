@@ -6,6 +6,7 @@ import LoginScreen from '../Screens/LoginScreen';
 import UserListScreen from '../Screens/UserListScreen';
 import RegistrationScreen from '../Screens/RegistrationScreen';
 import HomeScreen from '../Screens/HomeScreen/HomeScreen';
+import ChatScreen from '../Screens/ChatScreen/ChatScreen';
 
 
 
@@ -37,7 +38,14 @@ const StackNav = () => {
           }
         }} />
         <Stack.Screen name="HomeScreen" component={HomeScreen} options={{
-          title: 'UserListScreen',
+          title: 'HomeScreen',
+          headerTitleStyle: { color: "#fff" },
+          headerStyle: {
+            backgroundColor: '#FBAD28',
+          }
+        }} />
+        <Stack.Screen name="ChatScreen" component={ChatScreen} options={{
+          title: 'ChatScreen',
           headerTitleStyle: { color: "#fff" },
           headerStyle: {
             backgroundColor: '#FBAD28',

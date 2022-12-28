@@ -1,5 +1,14 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, TouchableOpacity, Image } from 'react-native';
+import {
+    ChatClient,
+    ChatOptions,
+    ChatMessageChatType,
+    ChatMessage,
+} from 'react-native-agora-chat';
+
+const chatClient = ChatClient.getInstance();
+const chatManager = chatClient.chatManager;
 const data = [
     {
         id: '1',
@@ -42,14 +51,28 @@ const data = [
         name: 'Kamal'
     },
 ]
-const HomeScreen = () => {
+const HomeScreen = (props) => {
+    const [allConversation, setAllConversation] = useState([]);
+    useEffect(() => {
+        chatManager.getAllConversations()
+            .then((res) => {
+                console.log(res, "Loadingconversationssucceeds");
+                setAllConversation(res);
+            })
+            .catch((reason) => {
+                console.log("Loadingconversationsfails", reason);
+            });
+    }, []);
+    const onUserChat = (item) => {
+        props?.navigation?.navigate("ChatScreen", { convId: item?.convId })
+    }
     const renderItem = ({ item }) => {
         return (
             <View style={{ borderBottomColor: '#000', borderBottomWidth: 1, width: '95%', alignSelf: 'center' }}>
-                <TouchableOpacity style={{ flexDirection: 'row', margin: 10 }} >
-                    <Image source={item.image} />
+                <TouchableOpacity style={{ flexDirection: 'row', margin: 10 }} onPress={() => onUserChat(item)} >
+                    {/* <Image source={item.image} /> */}
                     <View>
-                        <Text style={{ fontSize: 15, fontWeight: '500', color: '#000', padding: '4%' }}>{item.name}</Text>
+                        <Text style={{ fontSize: 15, fontWeight: '500', color: '#000', padding: '4%' }}>{item.convId}</Text>
                     </View>
                 </TouchableOpacity>
             </View>
@@ -65,7 +88,7 @@ const HomeScreen = () => {
             </View>
             <View>
                 <FlatList
-                    data={data}
+                    data={allConversation}
                     renderItem={renderItem}
                     keyExtractor={item => item.id}
                 />

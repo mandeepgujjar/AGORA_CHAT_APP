@@ -17,7 +17,8 @@ import {
     Text,
     TextInput,
     View,
-    Dimensions
+    Dimensions,
+    TouchableOpacity
 } from 'react-native';
 import {
     ChatClient,
@@ -40,7 +41,7 @@ const LoginScreen = (props) => {
     // Sepcify the conversation ID.
     // const convId = "mandeep12";
     // // Whether to create a conversation if the specified one does not exist. If you set it as true, this method always returns a conversation object.
-    // const createIfNeed = false;
+    const createIfNeed = false;
     // // Set conversation type. For details, see descriptions in ChatConversationType.
     // const convType = ChatMessageChatType.PeerChat;
     // // Call getConversation to retrieve the specified conversation.
@@ -53,9 +54,9 @@ const LoginScreen = (props) => {
 
 
 
-    const [username, setUsername] = React.useState('mandeep123');
+    const [username, setUsername] = React.useState('manjeet123');
     // Replaces <your agoraToken> with your Agora token.
-    const [chatToken, setChatToken] = React.useState('007eJxTYPBfeWLpJ8cfEy+t4/ngfi3Q7j+v89/g4niNiq+bwlN2pPkoMCQlW1gYm6YkmxikmJpYmqdapJibGyabp1hYmBinWZon9SivSW4IZGRY/fsBKyMDKwMjEIL4KgxGRonGpgYWBroWhknmuoaGqSm6iRZArkmaSbKFUbKRabJlKgBLeyk/');
+    const [chatToken, setChatToken] = React.useState('007eJxTYEh3kTQqi14iZSIc78Psulrn2Yp03Zk7Zpyd8+3ng6s2VlcVGJKSLSyMTVOSTQxSTE0szVMtUszNDZPNUywsTIzTLM2TVLTWJDcEMjKci6xiZmRgZWAEQhBfhcHQwDwpJc3cQNc82cxC19AwNUU3KTElUdc8xdDE3Nwo0cjEJA0A4bMmWA==');
     const [password, setPassword] = React.useState('');
     const [targetId, setTargetId] = React.useState('');
     const [content, setContent] = React.useState('');
@@ -118,7 +119,7 @@ const LoginScreen = (props) => {
             chatManager.addMessageListener(msgListener);
 
             // Specify the conversation ID.
-            const convId = "mandeep123";
+            const convId = "manjeet123";
             // Specify the conversation type. For details, see descriptions in  ChatConversationType.
             const convType = ChatMessageChatType.PeerChat;
             // Specify the maximum count of the retrieved messages.
@@ -127,41 +128,37 @@ const LoginScreen = (props) => {
             const startMsgId = "";
 
 
-            chatManager.fetchHistoryMessages(convId, convType, pageSize, startMsgId)
-                .then((messages) => {
-                    console.log("getmessagesuccess: ", messages);
-                })
-                .catch((reason) => {
-                    console.log("load conversions fail.", reason);
-                });
-            chatManager.getAllConversations()
-                .then((res) => {
-                    console.log(res, "Loadingconversationssucceeds");
-                })
-                .catch((reason) => {
-                    console.log("Loadingconversationsfails", reason);
-                });
-            chatManager.fetchAllConversations()
-                .then((message) => {
-                    console.log(message, "loadconversionssuccess");
-                })
-                .catch((reason) => {
-                    console.log("load_conversions_fail.", reason);
-                });
+            // chatManager.fetchHistoryMessages(convId, convType, pageSize, startMsgId)
+            //     .then((messages) => {
+            //         console.log("getmessagesuccess: ", messages);
+            //     })
+            //     .catch((reason) => {
+            //         console.log("load conversions fail.", reason);
+            //     });
+            // chatManager.getAllConversations()
+            //     .then((res) => {
+            //         console.log(res, "Loadingconversationssucceeds");
+            //     })
+            //     .catch((reason) => {
+            //         console.log("Loadingconversationsfails", reason);
+            //     });
+            // chatManager.fetchAllConversations()
+            //     .then((message) => {
+            //         console.log(message, "loadconversionssuccess");
+            //     })
+            //     .catch((reason) => {
+            //         console.log("load_conversions_fail.", reason);
+            //     });
 
 
             // chatClient
-            // .chatManager.getConversation(convId, convType, createIfNeed)
-            // .then((message) => {
-            //   console.log("Gettingconversationssucceeds", message);
-            // })
-            // .catch((reason) => {
-            //   console.log("Getting conversations fails.", reason);
-            // });
-
-
-
-
+            //     .chatManager.getConversation(convId, convType, createIfNeed)
+            //     .then((message) => {
+            //         console.log("Gettingconversationssucceeds", message);
+            //     })
+            //     .catch((reason) => {
+            //         console.log("Getting conversations fails.", reason);
+            //     });
         };
 
         // Initializes the SDK.
@@ -208,13 +205,6 @@ const LoginScreen = (props) => {
 
     // Logs in with an account ID and a token.
     const login = () => {
-        // if (this.isInitialized === false || this.isInitialized === undefined) {
-        //   rollLog('Perform initialization first.');
-        //   return;
-        // }
-
-
-
         props?.navigation?.navigate("HomeScreen");
         rollLog('start login ...');
         chatClient
@@ -229,21 +219,17 @@ const LoginScreen = (props) => {
     };
 
     // Logs out from server.
-    // const logout = () => {
-    //   // if (this.isInitialized === false || this.isInitialized === undefined) {
-    //   //   rollLog('Perform initialization first.');
-    //   //   return;
-    //   // }
-    //   rollLog('start logout ...');
-    //   chatClient
-    //     .logout()
-    //     .then(() => {
-    //       rollLog('logout success.');
-    //     })
-    //     .catch(reason => {
-    //       rollLog('logout fail:' + JSON.stringify(reason));
-    //     });
-    // };
+    const onLogout = () => {
+        rollLog('start logout ...');
+        chatClient
+            .logout()
+            .then(() => {
+                rollLog('logout success.');
+            })
+            .catch(reason => {
+                rollLog('logout fail:' + JSON.stringify(reason));
+            });
+    };
 
     // Sends a text message to somebody.
     // const sendmsg = (item) => {
@@ -362,11 +348,12 @@ const LoginScreen = (props) => {
                         <Text style={styles.eachBtn} onPress={login}>
                             SIGN IN
                         </Text>
-                        {/* <Text style={styles.eachBtn} onPress={logout}>
-            SIGN OUT
-          </Text> */}
                     </View>
+                    <TouchableOpacity style={styles.buttonCon} onPress={() => onLogout()}>
+                        <Text>LOGOUT</Text>
+                    </TouchableOpacity>
                 </View>
+
 
                 {/* <View style={styles.inputCon}>
           <TextInput
