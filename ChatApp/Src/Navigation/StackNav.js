@@ -14,13 +14,13 @@ const StackNav = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator >
-        {/* <Stack.Screen name="LoginScreen" component={LoginScreen} options={{
+        <Stack.Screen name="LoginScreen" component={LoginScreen} options={{
           title: 'LoginScreen',
           headerTitleStyle: { color: "#fff" },
           headerStyle: {
             backgroundColor: '#FBAD28',
           }
-        }} /> */}
+        }} />
         <Stack.Screen name="RegistrationScreen" component={RegistrationScreen} options={{
           title: 'RegistrationScreen',
           headerTitleStyle: { color: "#fff" },
