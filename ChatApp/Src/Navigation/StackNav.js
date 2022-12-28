@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from '../Screens/LoginScreen';
 import UserListScreen from '../Screens/UserListScreen';
 import RegistrationScreen from '../Screens/RegistrationScreen';
+import HomeScreen from '../Screens/HomeScreen/HomeScreen';
 
 
 
@@ -29,6 +30,13 @@ const StackNav = () => {
           }
         }} />
         <Stack.Screen name="UserListScreen" component={UserListScreen} options={{
+          title: 'UserListScreen',
+          headerTitleStyle: { color: "#fff" },
+          headerStyle: {
+            backgroundColor: '#FBAD28',
+          }
+        }} />
+        <Stack.Screen name="HomeScreen" component={HomeScreen} options={{
           title: 'UserListScreen',
           headerTitleStyle: { color: "#fff" },
           headerStyle: {

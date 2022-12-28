@@ -53,9 +53,9 @@ const LoginScreen = (props) => {
 
 
 
-    const [username, setUsername] = React.useState('');
+    const [username, setUsername] = React.useState('mandeep123');
     // Replaces <your agoraToken> with your Agora token.
-    const [chatToken, setChatToken] = React.useState('');
+    const [chatToken, setChatToken] = React.useState('007eJxTYPBfeWLpJ8cfEy+t4/ngfi3Q7j+v89/g4niNiq+bwlN2pPkoMCQlW1gYm6YkmxikmJpYmqdapJibGyabp1hYmBinWZon9SivSW4IZGRY/fsBKyMDKwMjEIL4KgxGRonGpgYWBroWhknmuoaGqSm6iRZArkmaSbKFUbKRabJlKgBLeyk/');
     const [password, setPassword] = React.useState('');
     const [targetId, setTargetId] = React.useState('');
     const [content, setContent] = React.useState('');
@@ -215,7 +215,7 @@ const LoginScreen = (props) => {
 
 
 
-        props?.navigation?.navigate("UserListScreen");
+        props?.navigation?.navigate("HomeScreen");
         rollLog('start login ...');
         chatClient
             .loginWithAgoraToken(username, chatToken)
