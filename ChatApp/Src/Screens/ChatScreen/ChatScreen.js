@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { View, Text, TextInput, KeyboardAvoidingView } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, TextInput, KeyboardAvoidingView, FlatList } from 'react-native';
 import {
     ChatClient,
     ChatOptions,
@@ -11,13 +11,13 @@ const chatClient = ChatClient.getInstance();
 const chatManager = chatClient.chatManager;
 
 const ChatScreen = (props) => {
-    const { convId } = props?.route?.params
+    const { convId } = props?.route?.params;
+    const [allChatMessage, setAllChatMessage] = useState([]);
 
 
-    console.log("setAllConversationsetAllConversation", convId);
     useEffect(() => {
         // Specify the conversation ID.
-        const convId = convId;
+        const convId = props?.route?.params?.convId;
         // Specify the conversation type. For details, see descriptions in  ChatConversationType.
         const convType = ChatMessageChatType.PeerChat;
         // Specify the maximum count of the retrieved messages.
@@ -26,27 +26,45 @@ const ChatScreen = (props) => {
         const startMsgId = "";
         chatManager.fetchHistoryMessages(convId, convType, pageSize, startMsgId)
             .then((messages) => {
-                console.log("getmessagesuccess: ", messages);
+                console.log("getmessagesuccess", messages);
+                setAllChatMessage(messages?.list)
             })
             .catch((reason) => {
                 console.log("load conversions fail.", reason);
             });
     }, []);
-    return (
-        <KeyboardAvoidingView style={{ height: '100%' }}>
+    const renderItem = ({ item }) => {
+        console.log("setAllConversationsetAllConversation", item);
+        return (
             <View style={{ flex: 1 }}>
                 <View style={{ flex: 0.95, width: '90%', alignSelf: 'center', marginTop: 10 }}>
-                    <View style={{ height: 40, width: '30%', backgroundColor: '#fff', alignSelf: 'center', borderRadius: 20, marginBottom: 10, justifyContent: 'center', alignSelf: 'flex-start', borderRadius: 20, marginBottom: 10, borderColor: 'pink', borderWidth: 2 }}>
-                        <Text style={{ alignSelf: 'center' }}>Hello</Text>
-                    </View>
-                    <View style={{ height: 40, width: '20%', backgroundColor: '#fff', alignSelf: 'center', borderRadius: 20, marginBottom: 10, justifyContent: 'center', alignSelf: 'flex-end', borderRadius: 20, marginBottom: 10, borderColor: 'pink', borderWidth: 2 }}>
-                        <Text style={{ alignSelf: 'center' }}>Ha G</Text>
-                    </View>
+                    {
+                        item?.direction === "rec" ?
+                            <View style={{ height: 40, width: '30%', backgroundColor: '#fff', alignSelf: 'center', borderRadius: 20, marginBottom: 10, justifyContent: 'center', alignSelf: 'flex-start', borderRadius: 20, marginBottom: 10, borderColor: 'pink', borderWidth: 2 }}>
+                                <Text style={{ alignSelf: 'center' }}>{item?.body?.content}</Text>
+                            </View>
+                            :
+                            <View style={{ height: 40, width: '20%', backgroundColor: '#fff', alignSelf: 'center', borderRadius: 20, marginBottom: 10, justifyContent: 'center', alignSelf: 'flex-end', borderRadius: 20, marginBottom: 10, borderColor: 'pink', borderWidth: 2 }}>
+                                <Text style={{ alignSelf: 'center' }}>{item?.body?.content}</Text>
+                            </View>
+                    }
                 </View>
-                <View style={{ height: 50, width: '90%', backgroundColor: '#fff', alignSelf: 'center', borderRadius: 20, borderColor: 'pink', borderWidth: 3 }} >
-                    <TextInput
-                        placeholder='chat' />
-                </View>
+
+            </View>
+        )
+    }
+
+    return (
+        <KeyboardAvoidingView style={{ height: '100%' }}>
+
+            <FlatList
+                data={allChatMessage}
+                renderItem={renderItem}
+                keyExtractor={item => item.id}
+            />
+            <View style={{ height: 50, width: '90%', backgroundColor: '#fff', alignSelf: 'center', borderRadius: 20, borderColor: 'pink', borderWidth: 3 }} >
+                <TextInput
+                    placeholder='chat' />
             </View>
         </KeyboardAvoidingView>
     )

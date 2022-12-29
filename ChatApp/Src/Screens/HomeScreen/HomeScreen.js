@@ -88,6 +88,7 @@ const HomeScreen = (props) => {
             </View>
             <View>
                 <FlatList
+                    key={item => item.id}
                     data={allConversation}
                     renderItem={renderItem}
                     keyExtractor={item => item.id}
