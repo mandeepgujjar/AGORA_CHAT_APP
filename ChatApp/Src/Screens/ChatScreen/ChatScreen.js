@@ -40,12 +40,12 @@ const ChatScreen = (props) => {
                 <View style={{ flex: 0.95, width: '90%', alignSelf: 'center', marginTop: 10 }}>
                     {
                         item?.direction === "rec" ?
-                            <View style={{ height: 40, width: '30%', backgroundColor: '#fff', alignSelf: 'center', borderRadius: 20, marginBottom: 10, justifyContent: 'center', alignSelf: 'flex-start', borderRadius: 20, marginBottom: 10, borderColor: 'pink', borderWidth: 2 }}>
-                                <Text style={{ alignSelf: 'center' }}>{item?.body?.content}</Text>
+                            <View style={{ height: 50, backgroundColor: '#fff', alignSelf: 'center', borderRadius: 20, marginBottom: 10, justifyContent: 'center', alignSelf: 'flex-start', borderRadius: 20, marginBottom: 10, borderColor: 'pink', borderWidth: 2,alignItems:"center" }}>
+                                <Text style={{ alignSelf: 'center',padding:10 }}>{item?.body?.content}</Text>
                             </View>
                             :
-                            <View style={{ height: 40, width: '20%', backgroundColor: '#fff', alignSelf: 'center', borderRadius: 20, marginBottom: 10, justifyContent: 'center', alignSelf: 'flex-end', borderRadius: 20, marginBottom: 10, borderColor: 'pink', borderWidth: 2 }}>
-                                <Text style={{ alignSelf: 'center' }}>{item?.body?.content}</Text>
+                            <View style={{ height: 50, backgroundColor: '#fff',  borderRadius: 20, marginBottom: 10, justifyContent: 'center', alignSelf: 'flex-end', borderRadius: 20, marginBottom: 10, borderColor: 'pink', borderWidth: 2 }}>
+                                <Text style={{ alignSelf: 'center',padding:10 }}>{item?.body?.content}</Text>
                             </View>
                     }
                 </View>
@@ -62,7 +62,7 @@ const ChatScreen = (props) => {
                 renderItem={renderItem}
                 keyExtractor={item => item.id}
             />
-            <View style={{ height: 50, width: '90%', backgroundColor: '#fff', alignSelf: 'center', borderRadius: 20, borderColor: 'pink', borderWidth: 3 }} >
+            <View style={{ height: 60, width: '90%', backgroundColor: '#fff', alignSelf: 'center', borderRadius: 20, borderColor: 'pink', borderWidth: 3, bottom :10 }} >
                 <TextInput
                     placeholder='chat' />
             </View>
