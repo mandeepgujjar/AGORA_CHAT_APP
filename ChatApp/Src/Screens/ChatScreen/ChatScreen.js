@@ -302,16 +302,15 @@ const ChatScreen = (props) => {
                 <View style={{ flex: 0.95, width: '90%', alignSelf: 'center', marginTop: 10 }}>
                     {
                         item?.direction === "rec" ?
-                            <View style={{ height: 40, backgroundColor: '#fff', alignSelf: 'center', borderRadius: 20, marginBottom: 10, justifyContent: 'center', alignSelf: 'flex-start', borderRadius: 20, marginBottom: 10, borderColor: 'pink', borderWidth: 2 }}>
-                                <Text style={{ alignSelf: 'center', padding: 10 }}>{item?.body?.content}</Text>
+                            <View style={{ height: 40, backgroundColor: '#fff',  borderRadius: 20, marginBottom: 10, justifyContent: 'center', alignSelf: 'flex-start',  borderColor: 'pink', borderWidth: 2 }}>
+                                <Text style={{ alignSelf: 'center', padding: 10,paddingVertical:0 }}>{item?.body?.content}</Text>
                             </View>
                             :
-                            <View style={{ height: 40, backgroundColor: '#fff', alignSelf: 'center', borderRadius: 20, marginBottom: 10, justifyContent: 'center', alignSelf: 'flex-end', borderRadius: 20, marginBottom: 10, borderColor: 'pink', borderWidth: 2 }}>
-                                <Text style={{ alignSelf: 'center', padding: 10 }}>{item?.body?.content}</Text>
+                            <View style={{ height: 40, backgroundColor: '#fff',  justifyContent: 'center', alignSelf: 'flex-end', borderRadius: 20, marginBottom: 10, borderColor: 'pink', borderWidth: 2 }}>
+                                <Text style={{ alignSelf: 'center', padding: 10,paddingVertical:0 }}>{item?.body?.content}</Text>
                             </View>
                     }
                 </View>
-
             </View>
         )
     }
@@ -321,22 +320,23 @@ const ChatScreen = (props) => {
             <KeyboardAvoidingView style={{ height: '100%' }}>
 
                 <FlatList
+                    showsVerticalScrollIndicator={false}
                     data={allChatMessage}
                     renderItem={renderItem}
                     keyExtractor={item => item.id}
                 />
                 <View style={{ height: "12%", flexDirection: "row", justifyContent: "space-around", backgroundColor: "#fff", alignItems: "center" }}>
 
-                    <View style={{ flexDirection: "row", height: 50, width: '75%', backgroundColor: '#fff', alignSelf: 'center', borderRadius: 20, borderColor: 'pink', borderWidth: 3, }} >
+                    <View style={{ flexDirection: "row", height: 40, width: '75%', backgroundColor: '#fff', alignSelf: 'center', borderRadius: 20, borderColor: 'pink', borderWidth: 3, }} >
                         <TextInput
                             placeholder='chat'
-                            style={{ paddingLeft: 20 }}
+                            style={{ paddingLeft: 20,width:"100%",height:"100%", borderRadius: 20,justifyContent:"center",paddingVertical:0 }}
                             onChangeText={text => setMessage(text)}
                             value={message}
 
                         />
                     </View>
-                    <TouchableOpacity style={{ height: 50, justifyContent: "center", width: '18%', backgroundColor: '#fff', alignItems: 'center', borderRadius: 20, borderColor: 'pink', borderWidth: 3, backgroundColor: "#FBAD28" }} onPress={() => sendmsg()}>
+                    <TouchableOpacity style={{ height: 40, justifyContent: "center", width: '18%', backgroundColor: '#fff', alignItems: 'center', borderRadius: 20, borderColor: 'pink', borderWidth: 3, backgroundColor: "#FBAD28" }} onPress={() => sendmsg()}>
                         <Text>SEND</Text>
                     </TouchableOpacity>
                 </View>
