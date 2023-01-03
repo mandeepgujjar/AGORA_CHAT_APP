@@ -192,7 +192,7 @@ const ChatScreen = (props) => {
                 console.log("load conversions fail.", reason);
             });
     }, [messageId]);
-    console.log("jdhvghcjbknlm", messageId)
+    console.log("jdhvghcjbknlm", props)
 
     // const onSendMsg=(text)=>{
     //     setMessage();
@@ -217,7 +217,7 @@ const ChatScreen = (props) => {
             }
             onSuccess(message) {
                 console.log(message?.body?.content, "contentcontentcontentcontentcontent");
-                // setMessage(message?.body?.content);
+                setMessage(message?.body?.content);
                 // rollLog('send message success: ' + message.localMsgId);
             }
         }
