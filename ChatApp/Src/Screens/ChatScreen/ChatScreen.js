@@ -219,6 +219,22 @@ const ChatScreen = (props) => {
                 console.log(message?.body?.content, "contentcontentcontentcontentcontent");
                 // setMessage(message?.body?.content);
                 setMessage("");
+                // Specify the conversation ID.
+                const convId = props?.route?.params?.convId;
+                // Specify the conversation type. For details, see descriptions in  ChatConversationType.
+                const convType = ChatMessageChatType.PeerChat;
+                // Specify the maximum count of the retrieved messages.
+                const pageSize = 100;
+                // Specify the message ID from which to retrieve the historical messages.
+                const startMsgId = "";
+                chatManager.fetchHistoryMessages(convId, convType, pageSize, startMsgId)
+                    .then((messages) => {
+                        console.log("getmessagesuccess11", messages);
+                        setAllChatMessage(messages?.list)
+                    })
+                    .catch((reason) => {
+                        console.log("load conversions fail.", reason);
+                    });
                 // rollLog('send message success: ' + message.localMsgId);
             }
         }
