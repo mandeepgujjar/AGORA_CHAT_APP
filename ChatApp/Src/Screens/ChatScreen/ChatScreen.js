@@ -197,7 +197,7 @@ const ChatScreen = (props) => {
     // const onSendMsg=(text)=>{
     //     setMessage();
     // };
-    const onMessageSend = () => {
+    const sendmsg = () => {
         console.log("itemitemitemitemitemitemitemitem", message);
         let msg = ChatMessage.createTextMessage(
             targetId,
@@ -217,7 +217,8 @@ const ChatScreen = (props) => {
             }
             onSuccess(message) {
                 console.log(message?.body?.content, "contentcontentcontentcontentcontent");
-                setMessage(message?.body?.content);
+                // setMessage(message?.body?.content);
+                setMessage("");
                 // rollLog('send message success: ' + message.localMsgId);
             }
         }
@@ -226,9 +227,10 @@ const ChatScreen = (props) => {
         chatClient.chatManager
             .sendMessage(msg, callback)
             .then(() => {
+                setMessage("");
                 // rollLog(msg?.body?.content);
                 // rollLog('send message: ' + msg.localMsgId);
-                console.log(msg?.body?.content, "rollLogrollLogrollLog", msg.localMsgId)
+                // console.log(msg?.body?.content, "rollLogrollLogrollLog", msg.localMsgId)
             })
             .catch(reason => {
                 // rollLog('send fail: ' + JSON.stringify(reason));
@@ -313,8 +315,8 @@ const ChatScreen = (props) => {
                         <TextInput
                             placeholder='chat'
                             style={{ paddingLeft: 20 }}
-                            onChangeText={text => setContent(text)}
-                            value={content}
+                            onChangeText={text => setMessage(text)}
+                            value={message}
 
                         />
                     </View>
