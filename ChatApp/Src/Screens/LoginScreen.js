@@ -56,7 +56,7 @@ const LoginScreen = (props) => {
 
     const [username, setUsername] = React.useState('manjeet123');
     // Replaces <your agoraToken> with your Agora token.
-    const [chatToken, setChatToken] = React.useState('007eJxTYFhzX3Riasi9J6t+sZ6z/HPPKUZ2q+zs16rL+oVOMHDJZqgrMCQlW1gYm6YkmxikmJpYmqdapJibGyabp1hYmBinWZoneYqtTW4IZGRYphPNwsjAysAIhCC+CoOhgXlSSpq5ga55spmFrqFhaopuUmJKoq55iqGJublRopGJSRoAOXkmMQ==');
+    const [chatToken, setChatToken] = React.useState('007eJxTYDit+Le9I8zy/Jc5lj8a1FhLBAwXVzGpyPTNmsoUt1XY664CQ1KyhYWxaUqyiUGKqYmleapFirm5YbJ5ioWFiXGapXnSh5ObkxsCGRmstKSZGBlYGRiBEMRXYTA0ME9KSTM30DVPNrPQNTRMTdFNSkxJ1DVPMTQxNzdKNDIxSQMAxqElkA==');
     const [password, setPassword] = React.useState('');
     const [targetId, setTargetId] = React.useState('');
     const [content, setContent] = React.useState('');
@@ -205,11 +205,11 @@ const LoginScreen = (props) => {
 
     // Logs in with an account ID and a token.
     const login = () => {
-        props?.navigation?.navigate("HomeScreen");
         rollLog('start login ...');
         chatClient
             .loginWithAgoraToken(username, chatToken)
             .then((response) => {
+                props?.navigation?.navigate("HomeScreen");
                 console.log(response, "responseresponseresponseresponse");
                 rollLog('login operation success.');
             })
@@ -232,44 +232,40 @@ const LoginScreen = (props) => {
     };
 
     // Sends a text message to somebody.
-    // const sendmsg = (item) => {
-    //   // if (this.isInitialized === false || this.isInitialized === undefined) {
-    //   //   rollLog('Perform initialization first.');
-    //   //   return;
-    //   // } 
-    //   console.log(item, "itemitemitemitemitemitemitemitem");
-    //   let msg = ChatMessage.createTextMessage(
-    //     targetId,
-    //     content,
-    //     ChatMessageChatType.PeerChat,
-    //   );
-    //   console.log(msg, "msgmsgmsgmsgmsgmsgmsg");
-    //   setContent("");
-    //   const callback = new (class {
-    //     onProgress(locaMsgId, progress) {
-    //       rollLog(`send message process: ${locaMsgId}, ${progress}`);
-    //     }
-    //     onError(locaMsgId, error) {
-    //       rollLog(`send message fail: ${locaMsgId}, ${JSON.stringify(error)}`);
-    //     }
-    //     onSuccess(message) {
-    //       console.log(message?.body?.content, "contentcontentcontentcontentcontent");
-    //       setMessage(message?.body?.content);
-    //       rollLog('send message success: ' + message.localMsgId);
-    //     }
-    //   }
-    //   )();
-    //   rollLog('start send message ...');
-    //   chatClient.chatManager
-    //     .sendMessage(msg, callback)
-    //     .then(() => {
-    //       rollLog(msg?.body?.content);
-    //       rollLog('send message: ' + msg.localMsgId);
-    //     })
-    //     .catch(reason => {
-    //       rollLog('send fail: ' + JSON.stringify(reason));
-    //     });
-    // };
+    const sendmsg = (item) => {
+        console.log(item, "itemitemitemitemitemitemitemitem");
+        let msg = ChatMessage.createTextMessage(
+            targetId,
+            content,
+            ChatMessageChatType.PeerChat,
+        );
+        console.log(msg, "msgmsgmsgmsgmsgmsgmsg");
+        setContent("");
+        const callback = new (class {
+            onProgress(locaMsgId, progress) {
+                rollLog(`send message process: ${locaMsgId}, ${progress}`);
+            }
+            onError(locaMsgId, error) {
+                rollLog(`send message fail: ${locaMsgId}, ${JSON.stringify(error)}`);
+            }
+            onSuccess(message) {
+                console.log(message?.body?.content, "contentcontentcontentcontentcontent");
+                setMessage(message?.body?.content);
+                rollLog('send message success: ' + message.localMsgId);
+            }
+        }
+        )();
+        rollLog('start send message ...');
+        chatClient.chatManager
+            .sendMessage(msg, callback)
+            .then(() => {
+                rollLog(msg?.body?.content);
+                rollLog('send message: ' + msg.localMsgId);
+            })
+            .catch(reason => {
+                rollLog('send fail: ' + JSON.stringify(reason));
+            });
+    };
     // const onGroupJoin = () => {
     // chatManager
     // You can set the value of `pageSize` to a maximum of 1000.

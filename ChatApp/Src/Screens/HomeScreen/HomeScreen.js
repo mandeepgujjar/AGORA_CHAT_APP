@@ -68,7 +68,7 @@ const HomeScreen = (props) => {
     }
     const renderItem = ({ item }) => {
         return (
-            <View style={{ borderBottomColor: '#000', borderBottomWidth: 1, width: '95%', alignSelf: 'center' }}>
+            <View style={{ borderBottomColor: '#000', borderBottomWidth: 1, width: '95%', alignSelf: 'center' }} key={item.convId}>
                 <TouchableOpacity style={{ flexDirection: 'row', margin: 10 }} onPress={() => onUserChat(item)} >
                     {/* <Image source={item.image} /> */}
                     <View>
@@ -88,7 +88,6 @@ const HomeScreen = (props) => {
             </View>
             <View>
                 <FlatList
-                    key={item => item.id}
                     data={allConversation}
                     renderItem={renderItem}
                     keyExtractor={item => item.id}
